@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Monoalphabetic</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+            width: 600px;
+        }
+        textarea, input, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        textarea {
+            resize: vertical;
+            background-color: #2a2a2a;
+            color: #ffffff;
+        }
+        input {
+            background-color: #2a2a2a;
+            color: #ffffff;
+        }
+        .btns {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            background-color: #03dac6;
+            color: #000000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #00bfa5;
+        }
+        h1 {
+            text-align: center;
+            color: #03dac6;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        .output {
+            background-color: #2a2a2a;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+    </style>
+    <script>
+        function generateKey() {
+            const letters = "abcdefghijklmnopqrstuvwxyz".split('');
+            const shuffled = [...letters].sort(() => Math.random() - 0.5);
+            const keyPairs = letters.map((l, i) => `${l}:${shuffled[i]}`);
+            document.getElementById('keymap').value = keyPairs.join(', ');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Monoalphabetic Encryption</h1>
+        <form method="POST">
+            <label for="plaintext">📝 Plain Text:</label>
+            <textarea name="plaintext" rows="5" placeholder="Enter your text here...">{{ plaintext }}</textarea>
+
+            <label for="keymap">🔐 Encryption Key:</label>
+            <input type="text" name="keymap" id="keymap" value="{{ keymap }}">
+
+            <div class="btns">
+                <button type="submit">🔒 Encrypt</button>
+                <button type="button" onclick="generateKey()">🎲 Generate Key</button>
+            </div>
+        </form>
+
+        {% if encrypted %}
+            <div class="output">
+                <label>🔓 Encrypted Text:</label>
+                <p>{{ encrypted }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
